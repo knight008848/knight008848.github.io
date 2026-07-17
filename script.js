@@ -42,6 +42,28 @@ const i18n = {
         note_opencv: "计算机视觉 30 天学习路线图",
         note_sensor: "异构传感器的多模态时间对齐方案",
         footer_text: "让我们共同构建坚实的数据底座。"
+    },
+    ja: {
+        nav_home: "ホーム",
+        nav_about: "概要",
+        nav_projects: "プロジェクト",
+        nav_notes: "ノート",
+        hero_greeting: "こんにちは、<span class='highlight'>Vincent</span>です。",
+        hero_desc: "堅牢なデータインフラとインテリジェントなパイプラインを構築します。",
+        hero_cta: "プロジェクトを見る",
+        about_title: "私について",
+        about_subtitle: "データとインテリジェンスの設計",
+        about_p1: "私はデータインフラ、データエンジニアリング、そして応用AIに情熱を注いでいます。私の目標は、スケーラブルなデータパイプラインを構築し、複雑なデータセットを実用的な視覚化とインテリジェントシステムに変換することです。",
+        about_p2: "現代の機械学習やエンボディドAIアプリケーションのために、非常に堅牢なデータ基盤を設計する新しい方法を常に探求しています。",
+        projects_title: "注目プロジェクト",
+        proj_viz_desc: "Pythonデータ視覚化をゼロから学ぶためのミニマリストコードリポジトリ。実用的なチャートと美しさに焦点を当てています。",
+        proj_imu_desc: "高度なコンピュータビジョン分析のためにiPhoneのIMUとカメラデータを同期するマルチモーダルアライメントツール。",
+        proj_opencv_desc: "基礎から高度な画像処理技術までを網羅した30日間のコンピュータビジョン集中学習リポジトリ。",
+        notes_title: "学習ノート",
+        note_viz: "Pythonデータ視覚化入門",
+        note_opencv: "30日間コンピュータビジョンロードマップ",
+        note_sensor: "異種センサーのマルチモーダル時間同期",
+        footer_text: "堅牢なデータ基盤を構築しましょう。"
     }
 };
 
@@ -49,6 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- i18n Language Toggle Logic ----
     const langBtn = document.getElementById('lang-toggle');
     let currentLang = localStorage.getItem('language') || 'en';
+    
+    // Validate currentLang is one of the supported languages
+    if (!['en', 'zh', 'ja'].includes(currentLang)) {
+        currentLang = 'en';
+    }
+
+    const langs = ['en', 'zh', 'ja'];
+    const btnLabels = {
+        'en': '🌐 English',
+        'zh': '🌐 中文',
+        'ja': '🌐 日本語'
+    };
 
     function setLanguage(lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -59,23 +93,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         currentLang = lang;
         localStorage.setItem('language', lang);
+        
+        // Update the button text so the user knows what language is active
+        if(langBtn) {
+            langBtn.innerHTML = btnLabels[lang];
+        }
+        console.log('Language switched to:', lang);
     }
 
     // Initialize Language
     setLanguage(currentLang);
 
     langBtn.addEventListener('click', () => {
-        const newLang = currentLang === 'en' ? 'zh' : 'en';
-        setLanguage(newLang);
+        // Cycle to the next language in the array
+        const nextIndex = (langs.indexOf(currentLang) + 1) % langs.length;
+        setLanguage(langs[nextIndex]);
     });
 
     // ---- Typewriter Effect ----
     const textElement = document.getElementById('typewriter');
     
-    // Using two sets of words based on current language
+    // Using sets of words based on current language
     const typeWords = {
         en: ["Data Infrastructure Engineer", "Python Visualization Advocate", "Applied AI Enthusiast", "Continuous Learner"],
-        zh: ["数据基础设施工程师", "Python 数据可视化倡导者", "应用人工智能爱好者", "终身学习者"]
+        zh: ["数据基础设施工程师", "Python 数据可视化倡导者", "应用人工智能爱好者", "终身学习者"],
+        ja: ["データインフラエンジニア", "Python視覚化の提唱者", "応用AI愛好家", "生涯学習者"]
     };
     
     let wordIndex = 0;
@@ -86,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let newWordDelay = 2000;
 
     function type() {
+        if(!textElement) return;
+        
         const words = typeWords[currentLang];
         // Ensure wordIndex doesn't exceed array length if language switches
         if (wordIndex >= words.length) wordIndex = 0;
