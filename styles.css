@@ -84,6 +84,7 @@ nav {
     list-style: none;
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-links a {
@@ -96,6 +97,26 @@ nav {
 
 .nav-links a:hover {
     color: var(--heading-color);
+}
+
+/* Language Button */
+.lang-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    color: var(--heading-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* Hero Section */
@@ -124,7 +145,7 @@ nav {
     font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 1.5rem;
-    height: 2.2rem; /* Fix height jumping */
+    height: 2.2rem;
     color: #8b949e;
 }
 
@@ -246,7 +267,7 @@ section:not(.hero) {
     transform: translateY(-10px);
     border-color: var(--primary-color);
     box-shadow: 0 10px 30px var(--primary-glow);
-    text-shadow: none; /* Override a:hover */
+    text-shadow: none;
 }
 
 .project-card h3 {
@@ -342,5 +363,5 @@ footer {
     .greeting { font-size: 3rem; }
     .typewriter-text { font-size: 1.2rem; height: 1.5rem;}
     .about-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; } /* Simple mobile menu hiding for now */
+    .nav-links { display: none; }
 }
